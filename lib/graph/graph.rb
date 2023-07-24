@@ -14,17 +14,38 @@ class Graph
   def initialize(board, piece)
     @board = board
     @piece = piece
-    @root = build(piece.current_position)
+    # piece_position = piece.current_position
+    # @root = Node.new([piece_position.first, piece_position.last])
+    @root = build
   end
 
-  def build(root)
-    # byebug``
-    piece.moves.map do |horizontal, vertical|
-      child_horizontal = root.first + horizontal
-      child_vertical = root.last + vertical
+  
+  def build
+    # byebug
 
-      child = Node.new([child_horizontal, child_vertical])
-      child.data if child.valid?
+    nodes.each do |node|
+      node.children = piece.moves.map do |horizontal, vertical|
+        child_x_pos = node.x_pos + horizontal
+        child_y_pos = node.y_pos + vertical
+        nodes.find { |node| node.data == [child_x_pos, child_y_pos]}
+      end
+    end
+  end
+
+  def position_valid?(position)
+    x_pos = position.first
+    y_pos = position.last
+    
+    x_valid = x_pos >= 0 && x_pos <= 7
+    y_valid = y_pos >= 0 && y_pos <= 7
+    x_valid && y_valid
+  end
+
+  private
+
+  def nodes
+    board.squares.map do |horizontal, vertical|
+      Node.new([horizontal, vertical])
     end
   end
 

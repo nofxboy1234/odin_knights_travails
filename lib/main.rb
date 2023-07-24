@@ -26,11 +26,13 @@ def knight_moves(knight, current_position, destination_position)
   moves
 end
 
-board = Board.new(8, 8)
+board = Board.new
 knight = Knight.new([0, 0])
 
 graph = Graph.new(board, knight)
 p graph.root
+
+
 
 # p knight_moves(knight, [0,0], [1, 2])
 
