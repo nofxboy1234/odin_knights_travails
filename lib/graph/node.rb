@@ -7,10 +7,11 @@
 class Node
   # include Comparable
 
-  attr_accessor :data, :children
+  attr_reader :data, :children
 
   def initialize(data, children)
     @data = data
+    @children = children
   end
 
   def valid?
