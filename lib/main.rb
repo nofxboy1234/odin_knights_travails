@@ -13,14 +13,12 @@ def knight_moves(knight, current_position, destination_position)
     current_horizontal = current_position.first
     current_vertical = current_position.last
 
-    next_position = 
+    next_position =
       [current_horizontal + horizontal, current_vertical + vertical]
     moves << next_position
-    if next_position == destination_position
-      break
-    else
-      puts 'no match'
-    end
+    break if next_position == destination_position
+
+    puts 'no match'
   end
 
   moves
@@ -30,10 +28,7 @@ board = Board.new
 knight = Knight.new([0, 0])
 
 graph = Graph.new(board, knight)
-p graph.root.first.data
-p graph.root.first.children
-
-
+current_position_node = graph.root.find { |node| node.data == [0, 0] }
+p current_position_node.children
 
 # p knight_moves(knight, [0,0], [1, 2])
-
