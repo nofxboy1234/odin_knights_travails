@@ -18,7 +18,6 @@ class Graph
     # @root = Node.new([piece_position.first, piece_position.last])
     @root = build
   end
-
   
   def build
     # byebug
