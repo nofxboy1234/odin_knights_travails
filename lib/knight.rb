@@ -1,12 +1,10 @@
-require_relative 'bst/tree'
-
 class Knight
-  attr_reader :moves
+  attr_reader :current_position, :moves
+  attr_accessor :possible_moves
 
-  def initialize
-    array = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]]
-    
-    # @moves = Tree.new(array: array)
-    @moves = array
+  def initialize(current_position)
+    @moves = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]]
+    @current_position = current_position
   end
+
 end

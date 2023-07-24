@@ -1,5 +1,6 @@
 require 'pry-byebug'
-require_relative 'bst/tree'
+require_relative 'graph/graph'
+require_relative 'graph/node'
 require_relative 'knight'
 require_relative 'board'
 
@@ -25,8 +26,11 @@ def knight_moves(knight, current_position, destination_position)
   moves
 end
 
-knight = Knight.new
-board = Board.new
+board = Board.new(8, 8)
+knight = Knight.new([0, 0])
 
-p knight_moves(knight, [0,0], [1, 2])
+graph = Graph.new(board, knight)
+p graph.root
+
+# p knight_moves(knight, [0,0], [1, 2])
 
