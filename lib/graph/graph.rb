@@ -22,12 +22,13 @@ class Graph
   def build
     # byebug
 
-    nodes.each do |node|
+    nodes.map do |node|
       node.children = piece.moves.map do |horizontal, vertical|
         child_x_pos = node.x_pos + horizontal
         child_y_pos = node.y_pos + vertical
         nodes.find { |node| node.data == [child_x_pos, child_y_pos]}
       end
+      node
     end
   end
 

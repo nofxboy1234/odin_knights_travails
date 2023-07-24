@@ -30,7 +30,8 @@ board = Board.new
 knight = Knight.new([0, 0])
 
 graph = Graph.new(board, knight)
-p graph.root.children
+p graph.root.first.data
+p graph.root.first.children
 
 
 
