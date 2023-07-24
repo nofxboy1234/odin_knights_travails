@@ -1,4 +1,6 @@
 class Position
+  include Comparable
+
   attr_accessor :x_pos, :y_pos
 
   def initialize(x_pos, y_pos)
@@ -11,4 +13,16 @@ class Position
     y_valid = y_pos >= board.start_index && y_pos <= board.end_index
     x_valid && y_valid
   end
+
+  def <=>(other)
+    x_pos <=> other.x_pos && y_pos <=> other.y_pos
+  end
 end
+
+# p1 = Position.new(1, 2)
+# past_positions = [p1]
+
+# p2 = Position.new(1, 2)
+# p p1 == p2
+# p past_positions.include?(p2)
+

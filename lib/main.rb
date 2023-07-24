@@ -28,4 +28,5 @@ require_relative 'position'
 board = Board.new(8, 8)
 knight = Knight.new(Position.new(0, 0))
 graph = Graph.new(board, knight)
-# p graph.root
+binding.pry
+puts 'end'

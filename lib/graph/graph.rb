@@ -20,12 +20,17 @@ class Graph
     board.squares.each do |row, column|
       @nodes << build(Position.new(row, column))
     end
-    byebug
+    # byebug
     @root = nodes.compact.find { |node| node.data == piece.position}
   end
   
-  def build(position)
+  def build(position, past_positions = [])
     return unless position.valid?(board)
+    if past_positions.include?(position)
+      return past_positions.find { |pos| pos == position}
+    end
+
+    past_positions << position
     
     children = piece.moves.map do |move|
       move_x_offset = move.first
@@ -34,7 +39,12 @@ class Graph
       child_x_pos = position.x_pos + move_x_offset
       child_y_pos = position.y_pos + move_y_offset
 
-      build(Position.new(child_x_pos, child_y_pos))
+      # build(Position.new(child_x_pos, child_y_pos))
+
+      # byebug
+      # byebug if (child_x_pos == position.x_pos) && (child_y_pos == position.y_pos)
+      child = build(Position.new(child_x_pos, child_y_pos), past_positions)
+      child
     end
 
     # children = []
