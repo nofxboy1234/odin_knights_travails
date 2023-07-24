@@ -15,9 +15,10 @@ class Graph
     @board = board
     @piece = piece
 
+    # Each node in @nodes is a potential root, depending on piece position
     @nodes = []
     board.squares.each do |row, column|
-      @nodes << build(piece.position)
+      @nodes << build(Position.new(row, column))
     end
     
     @root = nodes.find { |node| node.data = piece.position}
@@ -50,7 +51,7 @@ class Graph
   #   end
   # end
 
-  private
+  # private
 
   # def level_order_recursive(&my_block)
   #   nodes = (0..height_recursive(root)).map do |level|

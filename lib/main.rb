@@ -25,7 +25,7 @@ def knight_moves(knight, current_position, destination_position)
   moves
 end
 
-binding.pry
+# binding.pry
 board = Board.new(8, 8)
 knight = Knight.new(Position.new(0, 0))
 graph = Graph.new(board, knight)
