@@ -3,6 +3,7 @@ require_relative 'graph/graph'
 require_relative 'graph/node'
 require_relative 'knight'
 require_relative 'board'
+require_relative 'position'
 
 def knight_moves(knight, current_position, destination_position)
   # byebug
@@ -24,12 +25,14 @@ def knight_moves(knight, current_position, destination_position)
   moves
 end
 
-board = Board.new
-knight = Knight.new([0, 0])
-
+binding.pry
+board = Board.new(8, 8)
+knight = Knight.new(Position.new(0, 0))
 graph = Graph.new(board, knight)
-current_position_node = graph.root.find { |node| node.data == [0, 0] }
-p current_position_node.data
-p current_position_node.children
+# puts graph.root
+# p graph.root[0].children[4]
 
-# p knight_moves(knight, [0,0], [1, 2])
+# current_position_node = graph.root.find { |node| node.data == [0, 0] }
+# p current_position_node.data
+# p current_position_node.children
+

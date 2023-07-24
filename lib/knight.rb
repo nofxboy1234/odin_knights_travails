@@ -1,10 +1,10 @@
 class Knight
-  attr_reader :current_position, :moves
-  attr_accessor :possible_moves
+  attr_reader :position, :moves
+  attr_accessor :routes
 
-  def initialize(current_position)
+  def initialize(position)
     @moves = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]]
-    @current_position = current_position
+    @position = position
   end
 
 end

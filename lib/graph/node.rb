@@ -7,12 +7,10 @@
 class Node
   # include Comparable
 
-  attr_accessor :data, :x_pos, :y_pos, :children
+  attr_accessor :data, :children
 
-  def initialize(data)
+  def initialize(data, children)
     @data = data
-    @x_pos = data.first
-    @y_pos = data.last
   end
 
   def valid?

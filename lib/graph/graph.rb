@@ -9,45 +9,48 @@ require_relative 'byebug_syntax_highlighting'
 
 # Graph represents all possible moves a chess piece can make
 class Graph
-  attr_reader :board, :piece, :root
+  attr_reader :board, :piece, :nodes, :root
 
   def initialize(board, piece)
     @board = board
     @piece = piece
-    # piece_position = piece.current_position
-    # @root = Node.new([piece_position.first, piece_position.last])
-    @root = build
+
+    @nodes = []
+    board.squares.each do |row, column|
+      @nodes << build(piece.position)
+    end
+    
+    @root = nodes.find { |node| node.data = piece.position}
   end
   
-  def build
-    # byebug
+  def build(position)
+    return unless position.valid?(board)
 
-    nodes.map do |node|
-      node.children = piece.moves.map do |horizontal, vertical|
-        child_x_pos = node.x_pos + horizontal
-        child_y_pos = node.y_pos + vertical
-        nodes.find { |node| node.data == [child_x_pos, child_y_pos]}
-      end
-      node
+    children = piece.moves.map do |move|
+      move_x_offset = move.first
+      move_y_offset = move.last
+
+      child_x_pos = position.x_pos + move_x_offset
+      child_y_pos = position.y_pos + move_y_offset
+
+      build(Position.new(child_x_pos, child_y_pos))
     end
+
+    Node.new(position, children)
   end
 
-  def position_valid?(position)
-    x_pos = position.first
-    y_pos = position.last
-    
-    x_valid = x_pos >= 0 && x_pos <= 7
-    y_valid = y_pos >= 0 && y_pos <= 7
-    x_valid && y_valid
-  end
+  # def build
+  #   nodes.map do |node|
+  #     node.children = piece.moves.map do |horizontal, vertical|
+  #       child_x_pos = node.x_pos + horizontal
+  #       child_y_pos = node.y_pos + vertical
+  #       nodes.find { |node| node.data == [child_x_pos, child_y_pos]}
+  #     end
+  #     node
+  #   end
+  # end
 
   private
-
-  def nodes
-    board.squares.map do |horizontal, vertical|
-      Node.new([horizontal, vertical])
-    end
-  end
 
   # def level_order_recursive(&my_block)
   #   nodes = (0..height_recursive(root)).map do |level|
