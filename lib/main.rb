@@ -29,6 +29,7 @@ knight = Knight.new([0, 0])
 
 graph = Graph.new(board, knight)
 current_position_node = graph.root.find { |node| node.data == [0, 0] }
+p current_position_node.data
 p current_position_node.children
 
 # p knight_moves(knight, [0,0], [1, 2])
