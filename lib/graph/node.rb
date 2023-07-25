@@ -7,9 +7,9 @@
 class Node
   # include Comparable
 
-  attr_reader :data, :children
+  attr_accessor :data, :children
 
-  def initialize(data, children)
+  def initialize(data, children = nil)
     @data = data
     @children = children
   end
