@@ -17,7 +17,7 @@ class Knight
     # route = [root_node]
     route = []
 
-    byebug
+    # byebug
     draw_routes(stops, destination_node, route)
     # shortest_route = nil
     # byebug
@@ -33,12 +33,13 @@ class Knight
     route << root
     return if root == destination
 
-    child_node = root.children[1]
-    # rubocop:disable Style/IfUnlessModifier
-    unless found_node_in_route?(child_node, route)
-      draw_routes(child_node, destination, route)
+    root.children.each do |child_node|
+      # rubocop:disable Style/IfUnlessModifier
+      unless found_node_in_route?(child_node, route)
+        draw_routes(child_node, destination, route)
+      end
+      # rubocop:enable Style/IfUnlessModifier
     end
-    # rubocop:enable Style/IfUnlessModifier
     route
   end
 
