@@ -8,7 +8,6 @@ class Knight
   end
 
   def shortest_path_to_destination
-    
-
+    routes.children.map { |node| node.data }
   end
 end
