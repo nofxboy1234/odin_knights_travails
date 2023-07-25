@@ -21,14 +21,15 @@ class Graph
     #   @nodes << build(Position.new(row, column))
     # end
     # @root = nodes.find { |node| node.data == piece.position}
-
+  
     @root = build(piece.position)
   end
 
   def build(position, past_nodes = [])
+    byebug
     return unless position.valid?(board)
 
-    found_node = past_nodes.find { |node| node.position.eql(position) }
+    found_node = past_nodes.find { |node| node.data.eql(position) }
     return found_node if found_node
 
     node = Node.new(position)
@@ -42,7 +43,8 @@ class Graph
       child_y_pos = position.y_pos + move_y_offset
       child_position = Position.new(child_x_pos, child_y_pos)
 
-      build(child_position) if child_position.valid?(board)
+      child_valid = child_position.valid?(board)
+      build(child_position, past_nodes) if child_valid
     end
 
     node.children = children
