@@ -51,38 +51,6 @@ class Graph
     node.children = children.compact
     node
   end
-
-  # def build
-  #   nodes.map do |node|
-  #     node.children = piece.moves.map do |horizontal, vertical|
-  #       child_x_pos = node.x_pos + horizontal
-  #       child_y_pos = node.y_pos + vertical
-  #       nodes.find { |node| node.data == [child_x_pos, child_y_pos]}
-  #     end
-  #     node
-  #   end
-  # end
-
-  # private
-
-  # def level_order_recursive(&my_block)
-  #   nodes = (0..height_recursive(root)).map do |level|
-  #     nodes_on_level(root, level)
-  #   end
-
-  #   if block_given?
-  #     nodes.flatten.each { |node| my_block.call(node) }
-  #     nil
-  #   else
-  #     nodes.flatten.map { |node| node.data }
-  #   end
-  # end
-
-  # def find(value)
-  #   find_recursive(root, value)
-  # end
-
-  # private
 end
 
 # rubocop:enable Lint/RedundantCopDisableDirective
