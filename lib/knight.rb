@@ -14,8 +14,10 @@ class Knight
     # byebug
     root_node = Node.new(position)
     destination_node = Node.new(Position.new(destination.first, destination.last))
-    route = [root_node]
+    # route = [root_node]
+    route = []
 
+    # byebug
     hello = draw_routes(stops, destination_node, route)
     # shortest_route = nil
     # byebug
@@ -28,12 +30,13 @@ class Knight
   private
 
   def draw_routes(root, destination, route)
-    return root if root == destination
+    route << root
+    return if root == destination
 
     child_node = root.children[0]
     # rubocop:disable Style/IfUnlessModifier
     unless found_node_in_route?(child_node, route)
-      route << draw_routes(child_node, destination, route)
+      draw_routes(child_node, destination, route)
     end
     # rubocop:enable Style/IfUnlessModifier
     route
