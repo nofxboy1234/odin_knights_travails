@@ -48,7 +48,7 @@ class Graph
       end
     end
 
-    node.children = children
+    node.children = children.compact
     node
   end
 
