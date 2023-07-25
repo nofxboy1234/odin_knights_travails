@@ -30,7 +30,12 @@ class Knight
   private
 
   def draw_routes(root, destination, route)
-    route << root
+    if root.data == position
+      route << [root]
+    else
+      route.last << root
+    end
+
     return if root == destination
 
     root.children.each do |child_node|
@@ -44,10 +49,13 @@ class Knight
   end
 
   def found_node_in_route?(node, route)
-    if route.find { |route_node| node.data == route_node.data }
+    # byebug
+    if route.last.find { |route_node| node.data == route_node.data }
       true
     else
       false
     end
   end
 end
+
+[[[0, 0], [1, 2], [2, 1], [0, 2], [1, 0], [2, 2], [0, 1], [2, 0]]]
