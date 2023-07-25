@@ -28,7 +28,6 @@ class Graph
   def build(position, past_nodes = [])
     # byebug
     return unless position.valid?(board)
-
     
     node = Node.new(position)
     past_nodes << node
@@ -41,7 +40,7 @@ class Graph
       child_y_pos = position.y_pos + move_y_offset
       child_position = Position.new(child_x_pos, child_y_pos)
       
-      found_node = past_nodes.find { |node| node.data.eql?(child_position) }
+      found_node = past_nodes.find { |node| node.data == child_position }
       if found_node
         found_node
       else

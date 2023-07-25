@@ -25,8 +25,10 @@ require_relative 'position'
 #   moves
 # end
 
-board = Board.new(8, 8)
+board = Board.new(3, 3)
 knight = Knight.new(Position.new(0, 0))
 graph = Graph.new(board, knight)
-binding.pry
+binding.pry 
 puts 'end'
+
+
