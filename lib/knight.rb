@@ -7,4 +7,8 @@ class Knight
     @position = position
   end
 
+  def shortest_path_to_destination
+    
+
+  end
 end
