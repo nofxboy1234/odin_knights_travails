@@ -11,41 +11,39 @@ class Knight
   end
 
   def shortest_path_to_destination(destination)
-    root_node = stops
+    # byebug
+    root_node = Node.new(position)
     destination_node = Node.new(Position.new(destination.first, destination.last))
-    routes = draw_routes(root_node, destination_node)
+    route = [root_node]
 
-    shortest_route = nil
-    routes.each do |route|
-      shortest_route = route if (route.length - 1) > (shortest_route.length - 1)
-    end
-    shortest_route
+    hello = draw_routes(stops, destination_node, route)
+    # shortest_route = nil
+    # byebug
+    # routes.each do |route|
+    #   shortest_route = route if (route.length - 1) > (shortest_route.length - 1)
+    # end
+    # shortest_route
   end
 
   private
 
-  def draw_routes(root, destination, routes = [])
-    # byebug
-    # Add root node to routes array
-    routes << root
-    # if root.data == position
-    # else
-    #   routes << root
-    # end
-    # If the chosen child.data == destination, return routes array
-    return routes if root.data == destination.data
+  def draw_routes(root, destination, route)
+    return root if root == destination
 
-    # <Iterate> through each child in children
-    root.children.each do |child_node|
-      # Route through next child (Recurse) - exclude past nodes in routes array .last
-      if routes.last.find { |node| node.data == child_node.data }
-        next
-      else
-        draw_routes(child_node, destination, routes)
-      end
+    child_node = root.children[0]
+    # rubocop:disable Style/IfUnlessModifier
+    unless found_node_in_route?(child_node, route)
+      route << draw_routes(child_node, destination, route)
     end
+    # rubocop:enable Style/IfUnlessModifier
+    route
+  end
 
-    # Return routes array
-    routes
+  def found_node_in_route?(node, route)
+    if route.find { |route_node| node.data == route_node.data }
+      true
+    else
+      false
+    end
   end
 end

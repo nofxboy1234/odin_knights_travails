@@ -15,15 +15,15 @@ class Position
   end
 
   def <=>(other)
-    # comparisons = []
-    # x_compare = x_pos <=> other.x_pos
-    # comparisons << x_compare
-    # y_compare = y_pos <=> other.y_pos
-    # comparisons << y_compare
-
-    # return comparisons.all?(0) ? 0 : -1
-
     [x_pos, y_pos] <=> [other.x_pos, other.y_pos]
+  end
+
+  def to_s
+    "[#{x_pos}, #{y_pos}]"
+  end
+
+  def inspect
+    "[#{x_pos}, #{y_pos}]"
   end
 end
 

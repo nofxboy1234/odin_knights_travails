@@ -9,7 +9,7 @@ board = Board.new(3, 3)
 knight = Knight.new(Position.new(0, 0))
 graph = Graph.new(board, knight)
 knight.stops = graph.root
-# binding.pry
+
 p knight.shortest_path_to_destination([1, 2])
 
 
