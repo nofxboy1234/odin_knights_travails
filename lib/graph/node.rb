@@ -21,11 +21,11 @@ class Node
   end
 
   def to_s
-    "[#{data.x_pos}, #{data.y_pos}]"
+    "{#{data.x_pos}, #{data.y_pos}}"
   end
 
   def inspect
-    "[#{data.x_pos}, #{data.y_pos}]"
+    "{#{data.x_pos}, #{data.y_pos}}"
   end
 
   def <=>(other)

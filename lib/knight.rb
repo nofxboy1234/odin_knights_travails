@@ -12,13 +12,15 @@ class Knight
 
   def shortest_path_to_destination(destination)
     # byebug
-    root_node = Node.new(position)
+    # root_node = Node.new(position)
     destination_node = Node.new(Position.new(destination.first, destination.last))
     # route = [root_node]
-    route = []
-
     # byebug
-    draw_routes(stops, destination_node, route)
+    routes = []
+
+    first_route = []
+    routes << first_route
+    draw_routes(stops, destination_node, routes)
     # shortest_route = nil
     # byebug
     # routes.each do |route|
@@ -29,26 +31,34 @@ class Knight
 
   private
 
-  def draw_routes(root, destination, route)
-    if root.data == position
-      route << [root]
-    else
-      route.last << root
-    end
+  def draw_routes(root, destination, routes)
+    byebug
+    # if root.data == position
+    #   routes << [root]
+    # else
+    #   routes.last << root
+    # end
+    routes.last << root
 
-    return if root == destination
+    if root == destination
+      next_route = []
+      next_route << stops
+        
+      routes << next_route
+      return
+    end
 
     root.children.each do |child_node|
       # rubocop:disable Style/IfUnlessModifier
-      unless found_node_in_route?(child_node, route)
-        draw_routes(child_node, destination, route)
+      unless node_in_last_route?(child_node, routes)
+        draw_routes(child_node, destination, routes)
       end
       # rubocop:enable Style/IfUnlessModifier
     end
-    route
+    routes
   end
 
-  def found_node_in_route?(node, route)
+  def node_in_last_route?(node, route)
     # byebug
     if route.last.find { |route_node| node.data == route_node.data }
       true

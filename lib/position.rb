@@ -19,11 +19,11 @@ class Position
   end
 
   def to_s
-    "[#{x_pos}, #{y_pos}]"
+    "{#{x_pos}, #{y_pos}}"
   end
 
   def inspect
-    "[#{x_pos}, #{y_pos}]"
+    "{#{x_pos}, #{y_pos}}"
   end
 end
 
