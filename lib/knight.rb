@@ -16,11 +16,10 @@ class Knight
     destination_node = Node.new(Position.new(destination.first, destination.last))
     # route = [root_node]
     # byebug
-    routes = []
-
-    first_route = []
-    routes << first_route
-    draw_routes(stops, destination_node, routes)
+    
+    all_possible_routes = draw_routes(stops, destination_node)
+    # byebug
+    puts 'end'
     # shortest_route = nil
     # byebug
     # routes.each do |route|
@@ -30,42 +29,37 @@ class Knight
   end
 
   private
+  
+  # Follow ALL possible routes
+  # Each Orange array is a route_piece
+  # A route_piece will start (get created) at a child iteration (recurse).
+  # A route piece will be added to routes array when destination is reached.
+  # route_piece = [[[0, 0], [1, 2]]]
+  # route_piece = [        [[2, 1], [0, 2], [1, 0], [2, 2], [0, 1], [2, 0], [1, 2]]]
+  # route_piece = [                                [[a, a], [b, b], [1, 2]]]
 
-  def draw_routes(root, destination, routes)
+  # more than 1 path? - recursion
+  # how to record all path options? - recursion
+  def draw_routes(root, destination, routes = [], route_piece = [])
     byebug
-    # if root.data == position
-    #   routes << [root]
-    # else
-    #   routes.last << root
-    # end
-    routes.last << root
-
+    
     if root == destination
-      next_route = []
-      next_route << stops
-        
-      routes << next_route
-      return
+      route_piece << root
+      return routes
     end
+    
+    route_piece = []
+    route_piece << root
+    routes << route_piece
 
     root.children.each do |child_node|
       # rubocop:disable Style/IfUnlessModifier
-      unless node_in_last_route?(child_node, routes)
-        draw_routes(child_node, destination, routes)
+      # unless route_piece.include?(child_node)
+      unless routes.flatten.include?(child_node)
+        draw_routes(child_node, destination, routes, route_piece)
       end
       # rubocop:enable Style/IfUnlessModifier
     end
     routes
   end
-
-  def node_in_last_route?(node, route)
-    # byebug
-    if route.last.find { |route_node| node.data == route_node.data }
-      true
-    else
-      false
-    end
-  end
 end
-
-[[[0, 0], [1, 2], [2, 1], [0, 2], [1, 0], [2, 2], [0, 1], [2, 0]]]
