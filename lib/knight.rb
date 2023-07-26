@@ -61,11 +61,11 @@ class Knight
       end
       # rubocop:enable Style/IfUnlessModifier
     end
-    routes
+    # routes
   end
 
   # def draw_routes(root, destination, routes = [], route_piece = [])
-  #   byebug
+  #   # byebug
     
   #   route_piece.push(root) unless root.data == position
 
