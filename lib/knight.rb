@@ -40,26 +40,12 @@ class Knight
   # how to record all path options? - recursion
   # [[{1, 2}], [{2, 1}], [{0, 2}], [{1, 0}], [{2, 2}], [{0, 1}], [{2, 0}]]
 
-  def draw_routes(node, destination, route = [])
-    route.push(node)
+  def draw_routes(node, destination, routes = [])
+    byebug
 
-    # base case
-    if node == destination
-      return
-    end
     
-    # recursive case
-    node.children.each do |child_node|
-      # rubocop:disable Style/IfUnlessModifier
-      unless route.include?(child_node)
-        # route.concat(draw_routes(child_node, destination))
-        draw_routes(child_node, destination, route)
-      end
-      # rubocop:enable Style/IfUnlessModifier
-    end
-
-    # return value
-    route
+    
+    routes
   end
 
   # def draw_routes(root, destination, routes = [], route_piece = [])
