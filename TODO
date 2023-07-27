@@ -1,0 +1,7 @@
+Either:
+Search algorithm is not 100% correct and infinite recursion occurs:
+  - algo needs to record 'parallel' routes when unwinding the stack? - test this
+or
+Search algorithm is correct and stack gets too big
+
+Iteration version
