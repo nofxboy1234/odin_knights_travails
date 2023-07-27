@@ -53,18 +53,30 @@ class Knight
     end
 
     node.children.each do |child_node|
-      unless node_visited?(child_node, visited_nodes)
+      unless node_visited?(child_node, routes, visited_nodes)
         draw_routes(child_node, destination, visited_nodes, routes)
       end
     end
     
   end
 
-  def node_visited?(child_node, visited_nodes)
-    node_in_same_position_as_knight?(child_node) || visited_nodes.include?(child_node)
+  def node_visited?(child_node, routes, visited_nodes)
+    node_in_same_position = node_in_same_position_as_knight?(child_node)
+    
+    if unwinding_stack_back_to_next_valid_child?(visited_nodes)
+      visited = routes.last.include?(child_node)
+    else
+      visited = visited_nodes.include?(child_node)
+    end
+
+    node_in_same_position || visited
   end
 
   def node_in_same_position_as_knight?(node)
     node.data == position
+  end
+
+  def unwinding_stack_back_to_next_valid_child?(visited_nodes)
+    visited_nodes.empty?
   end
 end
