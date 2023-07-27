@@ -1,5 +1,6 @@
 require_relative 'graph/node'
 require_relative 'position'
+require_relative 'stack_status'
 
 class Knight
   attr_reader :position, :moves
@@ -18,7 +19,8 @@ class Knight
     # byebug
     
     current_position_node = stops
-    all_possible_routes = draw_routes(current_position_node, destination_node)
+    stack_status = StackStatus.new('winding')
+    all_possible_routes = draw_routes(current_position_node, destination_node, stack_status)
     # shortest_route = nil
     # byebug
     # routes.each do |route|
@@ -41,31 +43,40 @@ class Knight
   # how to record all path options? - recursion
   # [[{1, 2}], [{2, 1}], [{0, 2}], [{1, 0}], [{2, 2}], [{0, 1}], [{2, 0}]]
 
-  def draw_routes(node, destination, visited_nodes = [], routes = [])
+  def draw_routes(node, destination, stack_status, visited_nodes = [], routes = [])
     byebug
     visited_nodes.push(node) unless node_in_same_position_as_knight?(node)
+    stack_status.status = 'winding'
 
+    # base case
     if node == destination
       puts 'found destination!'
       routes.push(visited_nodes.clone)
       visited_nodes.clear
+      stack_status.status = 'unwinding'
       return
     end
 
+    # recursive case
     node.children.each do |child_node|
-      unless node_visited?(child_node, routes, visited_nodes)
-        draw_routes(child_node, destination, visited_nodes, routes)
+      unless node_visited?(child_node, routes, visited_nodes, stack_status)
+        draw_routes(child_node, destination, stack_status, visited_nodes, routes)
       end
     end
-    
+
+    # return?
   end
 
-  def node_visited?(child_node, routes, visited_nodes)
+  def first_child?(parent_node, child_node)
+    parent_node.children.first == child_node
+  end
+
+  def node_visited?(child_node, routes, visited_nodes, stack_status)
     node_in_same_position = node_in_same_position_as_knight?(child_node)
     
-    if unwinding_stack_back_to_next_valid_child?(visited_nodes)
+    if stack_status.unwinding?
       visited = routes.last.include?(child_node)
-    else
+    elsif stack_status.winding?
       visited = visited_nodes.include?(child_node)
     end
 
@@ -76,7 +87,8 @@ class Knight
     node.data == position
   end
 
-  def unwinding_stack_back_to_next_valid_child?(visited_nodes)
-    visited_nodes.empty?
-  end
+  # def unwinding_stack?(visited_nodes)
+  #   visited_nodes.empty?
+  # end
 end
+
