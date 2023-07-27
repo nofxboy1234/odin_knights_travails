@@ -18,8 +18,6 @@ class Knight
     # byebug
     
     all_possible_routes = draw_routes(stops, destination_node)
-    byebug
-    puts 'end'
     # shortest_route = nil
     # byebug
     # routes.each do |route|
