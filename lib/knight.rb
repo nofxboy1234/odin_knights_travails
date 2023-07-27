@@ -41,12 +41,15 @@ class Knight
   # how to record all path options? - recursion
   # [[{1, 2}], [{2, 1}], [{0, 2}], [{1, 0}], [{2, 2}], [{0, 1}], [{2, 0}]]
 
-  def draw_routes(node, destination, visited_nodes = [])
+  def draw_routes(node, destination, visited_nodes = [], routes = [])
     byebug
     visited_nodes.push(node) unless node_in_same_position_as_knight?(node)
 
     if node == destination
       puts 'found destination!'
+      routes.push(visited_nodes.clone)
+      visited_nodes.clear
+      return
     end
 
     node.children.each do |child_node|
