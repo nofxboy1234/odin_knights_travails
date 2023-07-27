@@ -20,7 +20,7 @@ class Knight
     
     current_position_node = stops
     stack_status = StackStatus.new('winding')
-    all_possible_routes = draw_routes(current_position_node, destination_node, stack_status)
+    draw_routes(current_position_node, destination_node, stack_status)
     # shortest_route = nil
     # byebug
     # routes.each do |route|
