@@ -19,11 +19,20 @@ class Board
     @squares
   end
 
-  def start_index
+  def rows_start_index
     0
   end
 
-  def end_index
+  def rows_end_index
+    rows - 1
+  end
+
+  def columns_start_index
+    0
+  end
+
+  def columns_end_index
     columns - 1
   end
+
 end

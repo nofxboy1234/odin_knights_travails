@@ -5,7 +5,7 @@ require_relative 'knight'
 require_relative 'board'
 require_relative 'position'
 
-board = Board.new(3, 3)
+board = Board.new(3, 2)
 knight = Knight.new(Position.new(0, 0))
 graph = Graph.new(board, knight)
 knight.stops = graph.root
