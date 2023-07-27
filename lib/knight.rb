@@ -44,7 +44,7 @@ class Knight
   # [[{1, 2}], [{2, 1}], [{0, 2}], [{1, 0}], [{2, 2}], [{0, 1}], [{2, 0}]]
 
   def draw_routes(node, destination, stack_status, visited_nodes = [], routes = [])
-    byebug
+    # byebug
     visited_nodes.push(node) unless node_in_same_position_as_knight?(node)
     stack_status.status = 'winding'
 
@@ -65,6 +65,7 @@ class Knight
     end
 
     # return?
+    routes
   end
 
   def first_child?(parent_node, child_node)
