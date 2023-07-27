@@ -54,7 +54,7 @@ class Knight
 
     node.children.each do |child_node|
       unless node_visited?(child_node, visited_nodes)
-        draw_routes(child_node, destination, visited_nodes)
+        draw_routes(child_node, destination, visited_nodes, routes)
       end
     end
     
