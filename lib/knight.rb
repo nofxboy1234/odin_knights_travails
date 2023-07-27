@@ -17,7 +17,8 @@ class Knight
     # route = [root_node]
     # byebug
     
-    all_possible_routes = draw_routes(stops, destination_node)
+    current_position_node = stops
+    all_possible_routes = draw_routes(current_position_node, destination_node)
     # shortest_route = nil
     # byebug
     # routes.each do |route|
@@ -40,34 +41,27 @@ class Knight
   # how to record all path options? - recursion
   # [[{1, 2}], [{2, 1}], [{0, 2}], [{1, 0}], [{2, 2}], [{0, 1}], [{2, 0}]]
 
-  def draw_routes(node, destination, routes = [])
+  def draw_routes(node, destination, visited_nodes = [])
     byebug
+    visited_nodes.push(node) unless node_in_same_position_as_knight?(node)
 
+    if node == destination
+      puts 'found destination!'
+    end
+
+    node.children.each do |child_node|
+      unless node_visited?(child_node, visited_nodes)
+        draw_routes(child_node, destination, visited_nodes)
+      end
+    end
     
-    
-    routes
   end
 
-  # def draw_routes(root, destination, routes = [], route_piece = [])
-  #   # byebug
-    
-  #   route_piece.push(root) unless root.data == position
+  def node_visited?(child_node, visited_nodes)
+    node_in_same_position_as_knight?(child_node) || visited_nodes.include?(child_node)
+  end
 
-  #   if root == destination
-  #     routes << route_piece
-  #     return
-  #   end
-    
-  #   root.children.each do |child_node|
-  #     # rubocop:disable Style/IfUnlessModifier
-  #     unless route_piece.include?(child_node) || child_node.data == position
-  #       draw_routes(child_node, destination, routes, route_piece)
-
-  #       # Create new route pieces and add to routes when destination reached
-  #       route_piece = []
-  #     end
-  #     # rubocop:enable Style/IfUnlessModifier
-  #   end
-  #   routes
-  # end
+  def node_in_same_position_as_knight?(node)
+    node.data == position
+  end
 end
