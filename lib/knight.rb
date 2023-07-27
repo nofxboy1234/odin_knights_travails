@@ -18,7 +18,7 @@ class Knight
     # byebug
     
     all_possible_routes = draw_routes(stops, destination_node)
-    # byebug
+    byebug
     puts 'end'
     # shortest_route = nil
     # byebug
@@ -42,23 +42,26 @@ class Knight
   # how to record all path options? - recursion
   # [[{1, 2}], [{2, 1}], [{0, 2}], [{1, 0}], [{2, 2}], [{0, 1}], [{2, 0}]]
 
-  def draw_routes(root, destination, routes = [], route_piece = [])
-    byebug
-    route_piece.push(root) unless root.data == position
-    
-    if root == destination
-      routes << route_piece
+  def draw_routes(node, destination, route = [])
+    route.push(node)
+
+    # base case
+    if node == destination
       return
     end
     
-    root.children.each do |child_node|
+    # recursive case
+    node.children.each do |child_node|
       # rubocop:disable Style/IfUnlessModifier
-      unless route_piece.include?(child_node) || child_node.data == position
-        draw_routes(child_node, destination, routes, route_piece)
-        route_piece = []
+      unless route.include?(child_node)
+        # route.concat(draw_routes(child_node, destination))
+        draw_routes(child_node, destination, route)
       end
       # rubocop:enable Style/IfUnlessModifier
     end
+
+    # return value
+    route
   end
 
   # def draw_routes(root, destination, routes = [], route_piece = [])
