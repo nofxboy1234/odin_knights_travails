@@ -43,25 +43,22 @@ class Knight
   # [[{1, 2}], [{2, 1}], [{0, 2}], [{1, 0}], [{2, 2}], [{0, 1}], [{2, 0}]]
 
   def draw_routes(root, destination, routes = [], route_piece = [])
-    # byebug
-    
+    byebug
     route_piece.push(root) unless root.data == position
-
+    
     if root == destination
-      return route_piece
+      routes << route_piece
+      return
     end
     
     root.children.each do |child_node|
       # rubocop:disable Style/IfUnlessModifier
       unless route_piece.include?(child_node) || child_node.data == position
-        routes << draw_routes(child_node, destination, routes, route_piece)
-        
-        # Create new route pieces and add to routes when destination reached
+        draw_routes(child_node, destination, routes, route_piece)
         route_piece = []
       end
       # rubocop:enable Style/IfUnlessModifier
     end
-    # routes
   end
 
   # def draw_routes(root, destination, routes = [], route_piece = [])
