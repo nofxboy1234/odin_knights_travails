@@ -1,8 +1,3 @@
-Either:
-Search algorithm is not 100% correct and infinite recursion occurs:
-  - algo needs to record 'parallel' (retrace path back to source) routes when unwinding the stack? - test this
-  - some routes can 'dead end' (no valid children: another base case?) without reaching the destination?
-or
-Search algorithm is correct and stack gets too big
-
 Iteration version
+
+Recursive version?...
