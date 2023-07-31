@@ -67,7 +67,7 @@ class Knight
     route = []
 
     while queue.length.positive?
-      p routes
+      # p routes
       current = queue.shift
       
       # if route.any?(current) || routes.any? { |route| route.first == current }
@@ -80,6 +80,7 @@ class Knight
       
       if current == destination
         routes.push(route.clone)
+        break if routes.length >= 20
         route = []
         next
       end
@@ -88,7 +89,7 @@ class Knight
         queue.push(child_node)
       end
     end
-
+    
     routes
   end
 
