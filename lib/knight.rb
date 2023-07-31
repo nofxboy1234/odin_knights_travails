@@ -40,7 +40,7 @@ class Knight
   # [[{1, 2}], [{2, 1}], [{0, 2}], [{1, 0}], [{2, 2}], [{0, 1}], [{2, 0}]]
 
   def draw_routes(node, destination, node_chain = [], routes = {})
-    byebug
+    # byebug
     node_chain.push(node)
     child_chain = node_chain.clone
     
