@@ -53,10 +53,8 @@ class Knight
     # recursive case
     node.children.each do |child_node|
       unless node_visited?(child_node, routes, node_chain)
+        child_chain = draw_routes(child_node, destination, node_chain.clone, routes)
         # node_chain.pop
-        child_chain = draw_routes(child_node, destination, node_chain, routes)
-        # node_chain.push(node)
-        node_chain.pop
 
         if routes[node_chain]
           routes[node_chain].push(child_chain.clone)
