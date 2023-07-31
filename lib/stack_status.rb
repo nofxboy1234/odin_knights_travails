@@ -1,10 +1,10 @@
 class StackStatus
-  private
+  # private
 
-  attr_reader :status
-
+  
   public
-
+  
+  attr_reader :status
   attr_writer :status
 
   def initialize(status)

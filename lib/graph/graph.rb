@@ -26,7 +26,6 @@ class Graph
   end
 
   def build(position, past_nodes = [])
-    # byebug
     return unless position.valid?(board)
     
     node = Node.new(position)
