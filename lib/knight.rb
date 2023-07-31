@@ -17,7 +17,9 @@ class Knight
     # route = [root_node]
     
     current_position_node = stops
-    draw_routes(current_position_node, destination_node)
+    # draw_routes(current_position_node, destination_node)
+    draw_routes_iterative(current_position_node, destination_node)
+
     # shortest_route = nil
     # routes.each do |route|
     #   shortest_route = route if (route.length - 1) > (shortest_route.length - 1)
@@ -26,42 +28,89 @@ class Knight
   end
 
   private
-  
-  # Follow ALL possible routes
-  # Each Orange array is a route_piece
-  # A route_piece will start (get created) at a child iteration (recurse).
-  # A route piece will be added to routes array when destination is reached.
-  # route_piece = [[[0, 0], [1, 2]]]
-  # route_piece = [        [[2, 1], [0, 2], [1, 0], [2, 2], [0, 1], [2, 0], [1, 2]]]
-  # route_piece = [                                [[a, a], [b, b], [1, 2]]]
 
-  # more than 1 path? - recursion
-  # how to record all path options? - recursion
-  # [[{1, 2}], [{2, 1}], [{0, 2}], [{1, 0}], [{2, 2}], [{0, 1}], [{2, 0}]]
+  # def level_order_iterative(&my_block)
+  #   return if root.nil?
+
+  #   queue = []
+  #   queue.push(root)
+
+  #   values = []
+  #   while queue.length.positive?
+  #     current = queue.shift
+
+  #     if block_given?
+  #       puts my_block.call(current)
+  #     else
+  #       values.push(current.data)
+  #     end
+
+  #     queue.push(current.left) if current.left
+  #     queue.push(current.right) if current.right
+  #   end
+
+  #   values unless block_given?
+  # end
+
+  def draw_routes_iterative(node, destination)
+    # byebug
+    return if node.nil?
+
+    queue = []
+    # queue.push(node)
+
+    node.children.each do |child_node|
+      queue.push(child_node)
+    end
+
+    routes = []
+    route = []
+
+    while queue.length.positive?
+      current = queue.shift
+      
+      # if route.any?(current) || routes.any? { |route| route.first == current }
+      #   next
+      # end
+
+      next if current.data == position || route.include?(current)
+
+      route.push(current)
+      
+      if current == destination
+        routes.push(route.clone)
+        route = []
+        next
+      end
+
+      current.children.each do |child_node|
+        queue.push(child_node)
+      end
+    end
+
+    routes
+  end
 
   def draw_routes(node, destination, node_chain = [], routes = {})
-    # byebug
-    node_chain.push(node)
-    child_chain = node_chain.clone
+    byebug
     
     # base case
     if node == destination
-      puts 'found destination!'
+      child_chain = node_chain.clone
+      child_chain.push(node)
       return child_chain
-    end
-    
-    # recursive case
-    node.children.each do |child_node|
-      unless node_visited?(child_node, routes, node_chain)
-        child_chain = draw_routes(child_node, destination, node_chain.clone, routes)
-        # node_chain.pop
-
-        if routes[node_chain]
-          routes[node_chain].push(child_chain.clone)
-        else
-          routes[node_chain] = [child_chain.clone]
+    else
+      # recursive case
+      child_chains = []
+      node.children.each do |child_node|
+        unless node_visited?(child_node, routes, node_chain)
+          child_chain = draw_routes(child_node, destination, node_chain, routes)
+          child_chains.push(child_chain)
         end
       end
+
+      node_chain.push(node)
+      routes[node_chain] = child_chains
     end
 
     # return?
