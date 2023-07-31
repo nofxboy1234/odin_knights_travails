@@ -67,6 +67,7 @@ class Knight
     route = []
 
     while queue.length.positive?
+      p routes
       current = queue.shift
       
       # if route.any?(current) || routes.any? { |route| route.first == current }
