@@ -53,44 +53,32 @@ class Knight
   # end
 
   def draw_routes_iterative(node, destination)
-    # byebug
-    return if node.nil?
+    byebug
 
     queue = []
-    # queue.push(node)
+    queue.push(node)
 
-    node.children.each do |child_node|
-      queue.push(child_node)
-    end
-
-    routes = []
-    route = []
+    parent_children = {}
 
     while queue.length.positive?
-      # p routes
       current = queue.shift
       
-      # if route.any?(current) || routes.any? { |route| route.first == current }
-      #   next
-      # end
+      next if current.data == position
 
-      next if current.data == position || route.include?(current)
-
-      route.push(current)
-      
       if current == destination
-        routes.push(route.clone)
-        break if routes.length >= 20
-        route = []
+        parent_children[current] = nil
         next
       end
 
+      parent_children[current] = {}
+
       current.children.each do |child_node|
         queue.push(child_node)
+        parent_children[current][child_node] = {}
       end
     end
     
-    routes
+    # byebug
   end
 
   def draw_routes(node, destination, node_chain = [], routes = {})
