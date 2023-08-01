@@ -58,23 +58,16 @@ class Knight
     queue = []
     queue.push(node)
 
-    parent_children = {}
-
     while queue.length.positive?
       current = queue.shift
       
-      next if current.data == position
-
       if current == destination
-        parent_children[current] = nil
+        puts 'destination reached!'
         next
       end
 
-      parent_children[current] = {}
-
       current.children.each do |child_node|
-        queue.push(child_node)
-        parent_children[current][child_node] = {}
+        queue.push(child_node) unless child_node.data == position
       end
     end
     
