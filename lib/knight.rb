@@ -12,19 +12,12 @@ class Knight
   end
 
   def shortest_path_to_destination(destination)
-    # root_node = Node.new(position)
     destination_node = Node.new(Position.new(destination.first, destination.last))
-    # route = [root_node]
-
     current_position_node = stops
-    # draw_routes(current_position_node, destination_node)
+
     draw_routes_iterative(current_position_node, destination_node)
 
-    # shortest_route = nil
-    # routes.each do |route|
-    #   shortest_route = route if (route.length - 1) > (shortest_route.length - 1)
-    # end
-    # shortest_route
+    # Find routes in routes hash that end with a value of {} (destination was reached)
   end
 
   private
@@ -53,7 +46,7 @@ class Knight
   # end
 
   def draw_routes_iterative(current, destination)
-    byebug
+    # byebug
 
     route = []
     routes = {}
@@ -64,25 +57,13 @@ class Knight
 
     while stack.length.positive?
       current = stack.pop
-
+      route.push(current)
+      
       if current == destination
         puts 'destination reached!'
-
-        # if routes[current]
-        #   route.each do |node|
-        #     routes[node]
-        #   end
-
-        #   routes[current][]
-        # else
-        #   routes[current] = {}
-        # end
-
-        # route = []
         next
       end
 
-      route.push(current)
       current_child_routes = routes.dig(*route)
       unless current_child_routes
         route_to_parent = route[0..-2]
@@ -98,6 +79,7 @@ class Knight
       end
     end
 
+    routes
     # byebug
   end
 
@@ -105,7 +87,9 @@ class Knight
     child_node.data == position
   end
 
-  def node_visited?(_child_node, routes)
-    routes
+  def node_visited?(child_node, routes, route)
+    has_existing_child_route = routes.dig(*route).has_key?(child_node)
+    child_node_in_current_route = route.include?(child_node)
+    has_existing_child_route || child_node_in_current_route
   end
 end
