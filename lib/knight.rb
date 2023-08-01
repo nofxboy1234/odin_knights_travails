@@ -15,7 +15,7 @@ class Knight
     # root_node = Node.new(position)
     destination_node = Node.new(Position.new(destination.first, destination.last))
     # route = [root_node]
-    
+
     current_position_node = stops
     # draw_routes(current_position_node, destination_node)
     draw_routes_iterative(current_position_node, destination_node)
@@ -64,33 +64,40 @@ class Knight
 
     while stack.length.positive?
       current = stack.pop
-      route.push(current)
-      
+
       if current == destination
         puts 'destination reached!'
 
-        if routes[current]
-          route.each do |node|
-            routes[]
-          end
+        # if routes[current]
+        #   route.each do |node|
+        #     routes[node]
+        #   end
 
-          routes[current][]
-        else
-          routes[current] = {}
-        end
+        #   routes[current][]
+        # else
+        #   routes[current] = {}
+        # end
 
-        route = []
+        # route = []
         next
       end
 
+      route.push(current)
+      current_child_routes = routes.dig(*route)
+      unless current_child_routes
+        route_to_parent = route[0..-2]
+        routes.dig(*route_to_parent)[current] = {}
+      end
+
       current.children.each do |child_node|
-        unless 
-          
-          stack.push(child_node) 
-        end
+        next if node_is_start_node?(child_node) ||
+                node_visited?(child_node, routes)
+
+        routes.dig(*route)[child_node] = {}
+        stack.push(child_node)
       end
     end
-    
+
     # byebug
   end
 
@@ -98,8 +105,7 @@ class Knight
     child_node.data == position
   end
 
-  def node_visited?(child_node, routes)
+  def node_visited?(_child_node, routes)
     routes
   end
-
 end
