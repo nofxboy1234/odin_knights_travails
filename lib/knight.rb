@@ -72,7 +72,7 @@ class Knight
 
       current.children.each do |child_node|
         next if node_is_start_node?(child_node) ||
-                node_visited?(child_node, routes)
+                node_visited?(child_node, routes, route)
 
         routes.dig(*route)[child_node] = {}
         stack.push(child_node)
