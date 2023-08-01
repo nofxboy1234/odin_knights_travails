@@ -52,11 +52,11 @@ class Knight
     routes = {}
     routes[root_node] = {}
 
-    stack = []
-    stack.push(root_node)
+    queue = []
+    queue.push(root_node)
 
-    while stack.length.positive?
-      current = stack.pop
+    while queue.length.positive?
+      current = queue.shift
       route.push(current)
       
       if current == destination
@@ -75,7 +75,7 @@ class Knight
                 node_visited?(child_node, routes, route)
 
         routes.dig(*route)[child_node] = {}
-        stack.push(child_node)
+        queue.push(child_node)
       end
     end
 
