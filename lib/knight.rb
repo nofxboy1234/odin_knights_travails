@@ -52,88 +52,54 @@ class Knight
   #   values unless block_given?
   # end
 
-  def draw_routes_iterative(node, destination)
+  def draw_routes_iterative(current, destination)
     byebug
 
-    queue = []
-    queue.push(node)
+    route = []
+    routes = {}
+    routes[current] = {}
 
-    while queue.length.positive?
-      current = queue.shift
+    stack = []
+    stack.push(current)
+
+    while stack.length.positive?
+      current = stack.pop
+      route.push(current)
       
       if current == destination
         puts 'destination reached!'
+
+        if routes[current]
+          route.each do |node|
+            routes[]
+          end
+
+          routes[current][]
+        else
+          routes[current] = {}
+        end
+
+        route = []
         next
       end
 
       current.children.each do |child_node|
-        queue.push(child_node) unless child_node.data == position
+        unless 
+          
+          stack.push(child_node) 
+        end
       end
     end
     
     # byebug
   end
 
-  def draw_routes(node, destination, node_chain = [], routes = {})
-    byebug
-    
-    # base case
-    if node == destination
-      child_chain = node_chain.clone
-      child_chain.push(node)
-      return child_chain
-    else
-      # recursive case
-      child_chains = []
-      node.children.each do |child_node|
-        unless node_visited?(child_node, routes, node_chain)
-          child_chain = draw_routes(child_node, destination, node_chain, routes)
-          child_chains.push(child_chain)
-        end
-      end
+  def node_is_start_node?(child_node)
+    child_node.data == position
+  end
 
-      node_chain.push(node)
-      routes[node_chain] = child_chains
-    end
-
-    # return?
+  def node_visited?(child_node, routes)
     routes
   end
 
-  def first_child?(parent_node, child_node)
-    parent_node.children.first == child_node
-  end
-
-  def node_visited?(child_node, routes, node_chain)
-    is_direct_visited_child = direct_visited_child?(routes, node_chain, child_node)
-    child_in_tail = child_in_tail?(node_chain, child_node)
-    is_direct_visited_child || child_in_tail
-
-    # if stack_status.unwinding?
-    #   is_direct_visited_child = direct_visited_child?(routes, node_chain, child_node)
-    #   child_in_tail = child_in_tail?(routes, child_node)
-
-    #   visited = is_direct_visited_child || child_in_tail
-    # elsif stack_status.winding?
-    #   visited = child_in_tail?(node_chain, child_node)
-    # end
-
-    # visited
-  end
-
-  def direct_visited_child?(routes, node_chain, child_node)
-    return false unless routes[node_chain]
-
-    routes[node_chain].any? do |child_chain|
-      child_chain.first == child_node
-    end
-  end
-
-  def child_in_tail?(node_chain, child_node)
-    node_chain.include?(child_node)
-  end
-
-  def node_in_same_position_as_knight?(node)
-    node.data == position
-  end
 end
