@@ -46,7 +46,9 @@ class Knight
   # end
 
   def draw_routes_iterative(current, destination)
-    byebug
+    # byebug
+
+    root_node = current
 
     route = []
     routes = {}
@@ -59,7 +61,11 @@ class Knight
       if current.parent
         unless current.children.include?(queue.first)
           # route.pop until route.last == current.parent 
-          route.pop # go back 1 level
+
+          # go back to node that has queue.first as a child
+          until route.last.children.include?(queue.first)
+            route.pop
+          end
         end
       end
 
@@ -68,12 +74,15 @@ class Knight
 
       if current == destination
         puts 'destination reached!'
-        # route.pop until route.last == current.parent if current.parent
-        
-        # traverse back to root node and count 'moves' to get shorted route
-        next
-      end
+        # traverse back to root node and count 'moves' to get shortest route
+        shortest_route = []
+        until current == root_node
+          shortest_route.unshift(current)
+          current = current.parent
+        end
 
+        return shortest_route
+      end
       
       current_child_routes = routes.dig(*route)
       unless current_child_routes
@@ -90,7 +99,6 @@ class Knight
         child_node.parent = current
         queue.push(child_node)
       end
-
     end
 
     # routes
