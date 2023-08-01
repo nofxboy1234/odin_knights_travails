@@ -58,11 +58,16 @@ class Knight
     while queue.length.positive?
       current = queue.shift
       route.push(current)
-      
+
       if current == destination
         puts 'destination reached!'
+
+        route.pop until route.last == current.parent
+
         next
       end
+
+      # route.pop until route.last == current.parent if current.parent
 
       current_child_routes = routes.dig(*route)
       unless current_child_routes
@@ -75,6 +80,8 @@ class Knight
                 node_visited?(child_node, routes, route)
 
         routes.dig(*route)[child_node] = {}
+
+        child_node.parent = current
         queue.push(child_node)
       end
     end
