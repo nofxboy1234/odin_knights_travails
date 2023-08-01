@@ -46,7 +46,7 @@ class Knight
   # end
 
   def draw_routes_iterative(current, destination)
-    # byebug
+    byebug
 
     root_node = current
 
