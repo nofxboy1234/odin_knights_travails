@@ -46,7 +46,7 @@ class Knight
   # end
 
   def draw_routes_iterative(current, destination)
-    # byebug
+    byebug
 
     route = []
     routes = {}
@@ -90,6 +90,7 @@ class Knight
   def node_visited?(child_node, routes, route)
     has_existing_child_route = routes.dig(*route).has_key?(child_node)
     child_node_in_current_route = route.include?(child_node)
+    
     has_existing_child_route || child_node_in_current_route
   end
 end
