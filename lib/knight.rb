@@ -45,15 +45,15 @@ class Knight
   #   values unless block_given?
   # end
 
-  def draw_routes_iterative(current, destination)
+  def draw_routes_iterative(root_node, destination)
     byebug
 
     route = []
     routes = {}
-    routes[current] = {}
+    routes[root_node] = {}
 
     stack = []
-    stack.push(current)
+    stack.push(root_node)
 
     while stack.length.positive?
       current = stack.pop
@@ -90,7 +90,7 @@ class Knight
   def node_visited?(child_node, routes, route)
     has_existing_child_route = routes.dig(*route).has_key?(child_node)
     child_node_in_current_route = route.include?(child_node)
-    
+
     has_existing_child_route || child_node_in_current_route
   end
 end
