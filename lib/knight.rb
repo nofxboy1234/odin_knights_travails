@@ -72,47 +72,23 @@ class Knight
 
     root_node = current
 
-    # route = []
-    # routes = {}
-    # routes[current] = {}
-
     queue = []
     queue.push(current)
 
     until queue.empty?
-      # if current.parent
-      #   unless current.children.include?(queue.first)
-
-      #     # go back to node that has queue.first as a child
-      #     until route.last.children.include?(queue.first)
-      #       route.pop
-      #     end
-      #   end
-      # end
-
       current = queue.shift
-      # route.push(current)
 
       # --base case
       if current == destination
         puts 'destination reached!'
-        # traverse back to root node and count 'moves' to get shortest route
+        # --return value
         return route(current, root_node)
       end
 
       # --recursive case
-
-      # current_child_routes = routes.dig(*route)
-      # unless current_child_routes
-      #   route_to_parent = route[0..-2]
-      #   routes.dig(*route_to_parent)[current] = {}
-      # end
-
       current.children.each do |child_node|
         next if child_node == root_node ||
                 route(current, root_node).include?(child_node)
-
-        # routes.dig(*route)[child_node] = {}
 
         child_node.parent = current
         queue.push(child_node)
