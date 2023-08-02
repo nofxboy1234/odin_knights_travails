@@ -15,22 +15,15 @@ class Graph
     @board = board
     @piece = piece
 
-    # Each node in @nodes is a potential root, depending on piece position
-    # @nodes = []
-    # board.squares.each do |row, column|
-    #   @nodes << build(Position.new(row, column))
-    # end
-    # @root = nodes.find { |node| node.data == piece.position}
-  
     @root = build(piece.position)
   end
 
   def build(position, past_nodes = [])
     return unless position.valid?(board)
-    
+
     node = Node.new(position)
     past_nodes << node
-    
+
     children = piece.moves.map do |move|
       move_x_offset = move.first
       move_y_offset = move.last
@@ -38,13 +31,9 @@ class Graph
       child_x_pos = position.x_pos + move_x_offset
       child_y_pos = position.y_pos + move_y_offset
       child_position = Position.new(child_x_pos, child_y_pos)
-      
+
       found_node = past_nodes.find { |node| node.data == child_position }
-      if found_node
-        found_node
-      else
-        build(child_position, past_nodes)
-      end
+      found_node || build(child_position, past_nodes)
     end
 
     node.children = children.compact

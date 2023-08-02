@@ -1,5 +1,5 @@
 class Board
-  attr_reader :squares, :rows, :columns
+  attr_reader :rows, :columns
 
   def initialize(rows, columns)
     @rows = rows
@@ -34,5 +34,4 @@ class Board
   def columns_end_index
     columns - 1
   end
-
 end

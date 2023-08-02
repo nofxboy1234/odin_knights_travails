@@ -26,19 +26,3 @@ class Position
     "{#{x_pos}, #{y_pos}}"
   end
 end
-
-# p1 = Position.new(1, 2)
-# past_positions = [p1]
-
-# p2 = Position.new(1, 2)
-# p p1 == p2
-# p past_positions.include?(p2)
-# # p past_positions.find { |pos| pos.eql?(p2) }
-# p past_positions.find { |pos| pos == p2 }
-
-# p3 = Position.new(1, 3)
-# p past_positions.find { |pos| pos == p3 }
-
-# p4 = Position.new(0, 2)
-# p past_positions.find { |pos| pos == p4 }
-

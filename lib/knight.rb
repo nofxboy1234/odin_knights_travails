@@ -1,6 +1,5 @@
 require_relative 'graph/node'
 require_relative 'position'
-require_relative 'stack_status'
 
 class Knight
   attr_reader :position, :moves
@@ -19,28 +18,6 @@ class Knight
   end
 
   private
-
-  def route_to_parent_of_child(routes, root_node, child, parent = nil)
-    parent = routes[root_node]
-
-    # base case
-    if parent.children.include?(child)
-      route = []
-      route.unshift(parent)
-
-      node = parent
-      until node == root_node
-        route.unshift(node)
-        node = node.parent
-      end
-      route.unshift(root_node)
-
-      return route
-    end
-
-    # recursive case
-    route_to_parent_of_child(routes, root_node, child, parent)
-  end
 
   def draw_routes_iterative(current, destination)
     root_node = current

@@ -34,10 +34,5 @@ class Node
   end
 end
 
-# require_relative '../position'
-# n1 = Node.new(Position.new(1, 2))
-# n2 = Node.new(Position.new(1, 2))
-# p n1 == n2
-
 # rubocop:enable Lint/RedundantCopDisableDirective
 # rubocop:enable Style/TrivialAccessors
