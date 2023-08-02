@@ -45,6 +45,28 @@ class Knight
   #   values unless block_given?
   # end
 
+  def route_to_parent_of_child(routes, root_node, child, parent = nil)
+    parent = routes[root_node]
+    
+    # base case
+    if parent.children.include?(child)
+      route = []
+      route.unshift(parent)
+      
+      node = parent
+      until node == root_node
+        route.unshift(node)
+        node = node.parent
+      end
+      route.unshift(root_node)
+
+      return route
+    end
+
+    # recursive case
+    route_to_parent_of_child(routes, root_node, child, parent)
+  end
+
   def draw_routes_iterative(current, destination)
     byebug
 
@@ -57,7 +79,7 @@ class Knight
     queue = []
     queue.push(current)
 
-    while queue.length.positive?
+    until queue.empty?
       if current.parent
         unless current.children.include?(queue.first)
           # route.pop until route.last == current.parent 
