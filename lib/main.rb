@@ -4,9 +4,9 @@ require_relative 'knight'
 require_relative 'board'
 require_relative 'position'
 
+board_size = [8, 8]
 start_position = [0, 0]
-end_position = [1, 2]
-board_size = [4, 4]
+end_position = [3, 3]
 
 board = Board.new(*board_size)
 knight = Knight.new(Position.new(*start_position))
