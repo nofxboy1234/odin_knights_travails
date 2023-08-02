@@ -16,34 +16,9 @@ class Knight
     current_position_node = stops
 
     draw_routes_iterative(current_position_node, destination_node)
-
-    # Find routes in routes hash that end with a value of {} (destination was reached)
   end
 
   private
-
-  # def level_order_iterative(&my_block)
-  #   return if root.nil?
-
-  #   queue = []
-  #   queue.push(root)
-
-  #   values = []
-  #   while queue.length.positive?
-  #     current = queue.shift
-
-  #     if block_given?
-  #       puts my_block.call(current)
-  #     else
-  #       values.push(current.data)
-  #     end
-
-  #     queue.push(current.left) if current.left
-  #     queue.push(current.right) if current.right
-  #   end
-
-  #   values unless block_given?
-  # end
 
   def route_to_parent_of_child(routes, root_node, child, parent = nil)
     parent = routes[root_node]
@@ -68,8 +43,6 @@ class Knight
   end
 
   def draw_routes_iterative(current, destination)
-    byebug
-
     root_node = current
 
     queue = []
@@ -107,15 +80,4 @@ class Knight
 
     route
   end
-
-  # def node_is_start_node?(child_node)
-  #   child_node.data == position
-  # end
-
-  # def node_visited?(child_node, routes, route)
-  #   has_existing_child_route = routes.dig(*route).has_key?(child_node)
-  #   child_node_in_current_route = route.include?(child_node)
-
-  #   has_existing_child_route || child_node_in_current_route
-  # end
 end
