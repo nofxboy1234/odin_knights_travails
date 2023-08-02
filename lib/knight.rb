@@ -68,11 +68,11 @@ class Knight
   end
 
   def draw_routes_iterative(current, destination)
-    # byebug
+    byebug
 
     root_node = current
 
-    route = []
+    # route = []
     # routes = {}
     # routes[current] = {}
 
@@ -91,20 +91,13 @@ class Knight
       # end
 
       current = queue.shift
-      route.push(current)
+      # route.push(current)
 
       # --base case
       if current == destination
         puts 'destination reached!'
         # traverse back to root node and count 'moves' to get shortest route
-        shortest_route = []
-        until current == root_node
-          shortest_route.unshift(current)
-          current = current.parent
-        end
-        shortest_route.unshift(root_node)
-
-        return shortest_route
+        return route(current, root_node)
       end
 
       # --recursive case
@@ -117,7 +110,7 @@ class Knight
 
       current.children.each do |child_node|
         next if child_node == root_node ||
-                route.include?(child_node)
+                route(current, root_node).include?(child_node)
 
         # routes.dig(*route)[child_node] = {}
 
@@ -125,6 +118,18 @@ class Knight
         queue.push(child_node)
       end
     end
+  end
+
+  def route(current_node, root_node)
+    route = []
+
+    until current_node == root_node
+      route.unshift(current_node)
+      current_node = current_node.parent
+    end
+    route.unshift(root_node)
+
+    route
   end
 
   # def node_is_start_node?(child_node)
