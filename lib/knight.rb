@@ -29,17 +29,9 @@ class Knight
     until queue.empty?
       current = queue.shift
 
-      # node_in_another_route = routes.any? do |route|
-      #   route.include?(current)
-      # end
-      # next if node_in_another_route
-
       if current == destination
         current_route = route(current, root_node)
-        # routes.push(route_shortened(current_route))
         return route_shortened(current_route)
-        # p routes
-        # next
       end
 
       current.children.each do |child_node|
@@ -55,7 +47,7 @@ class Knight
   end
 
   def route_shortened(route)
-    # Are there nodes further down in the route that are also children of the root_node?
+    # Are there nodes further down in the route that are also children of the current parent?
     route.each_with_index do |parent_node, parent_index|
       later_child_node = nil
       route.reverse.each do |child_node|
