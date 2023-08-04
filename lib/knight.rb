@@ -29,16 +29,17 @@ class Knight
     until queue.empty?
       current = queue.shift
 
-      node_in_another_route = routes.any? do |route|
-        route.include?(current)
-      end
-      next if node_in_another_route
+      # node_in_another_route = routes.any? do |route|
+      #   route.include?(current)
+      # end
+      # next if node_in_another_route
 
       if current == destination
         current_route = route(current, root_node)
-        routes.push(route_shortened(current_route))
-        p routes
-        next
+        # routes.push(route_shortened(current_route))
+        return route_shortened(current_route)
+        # p routes
+        # next
       end
 
       current.children.each do |child_node|
