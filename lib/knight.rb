@@ -25,14 +25,24 @@ class Knight
     queue = []
     queue.push(current)
 
+    routes = []
     until queue.empty?
       current = queue.shift
+
+      current_route = route(current, root_node)
+      route_piece_exists = routes.any? do |route|
+        (route & current_route) == current_route
+      end
+      next if route_piece_exists
 
       # --base case
       if current == destination
         puts 'destination reached!'
+
         # --return value
-        return route(current, root_node)
+        # return route(current, root_node)
+        byebug
+        routes.push(route(current, root_node))
       end
 
       # --recursive case
