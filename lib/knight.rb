@@ -29,11 +29,16 @@ class Knight
     until queue.empty?
       current = queue.shift
 
-      current_route = route(current, root_node)
-      route_piece_exists = routes.any? do |route|
-        (route & current_route) == current_route
+      node_in_another_route = routes.any? do |route|
+        route.include?(current)
       end
-      next if route_piece_exists
+      next if node_in_another_route
+
+      # current_route = route(current, root_node)
+      # route_piece_exists = routes.any? do |route|
+      #   (route & current_route) == current_route
+      # end
+      # next if route_piece_exists
 
       # --base case
       if current == destination
@@ -41,8 +46,10 @@ class Knight
 
         # --return value
         # return route(current, root_node)
-        routes.push(route(current, root_node))
+        current_route = route(current, root_node)
+        routes.push(route_shortened(current_route))
         p routes
+        next
       end
 
       # --recursive case
@@ -56,6 +63,28 @@ class Knight
     end
 
     shortest_route(routes)
+  end
+
+  def route_shortened(route)
+    # Are there nodes further down in the route that are also children of the root_node?
+    route.each_with_index do |parent_node, parent_index|
+      later_child_node = nil
+      route.reverse.each do |child_node|
+        if parent_node.children.include?(child_node)
+          later_child_node = child_node
+          break
+        end
+      end
+      
+      if later_child_node
+        later_index = route.index(later_child_node)
+        # cut out the inbetween nodes
+        shortened = route[..parent_index] + route[later_index..]
+        return shortened
+      end
+    end
+
+    route
   end
 
   def shortest_route(routes)
