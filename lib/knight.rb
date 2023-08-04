@@ -37,12 +37,12 @@ class Knight
 
       # --base case
       if current == destination
-        puts 'destination reached!'
+        # puts 'destination reached!'
 
         # --return value
         # return route(current, root_node)
-        byebug
         routes.push(route(current, root_node))
+        p routes
       end
 
       # --recursive case
@@ -54,6 +54,21 @@ class Knight
         queue.push(child_node)
       end
     end
+
+    shortest_route(routes)
+  end
+
+  def shortest_route(routes)
+    shortest = nil
+    routes.each do |route|
+      if shortest
+        shortest = route if route.length < shortest.length
+      else
+        shortest = route
+      end
+    end
+
+    shortest
   end
 
   def route(current_node, root_node)
