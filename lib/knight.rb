@@ -25,7 +25,6 @@ class Knight
     queue = []
     queue.push(current)
 
-    routes = []
     until queue.empty?
       current = queue.shift
 
@@ -42,8 +41,6 @@ class Knight
         queue.push(child_node)
       end
     end
-
-    shortest_route(routes)
   end
 
   def route_shortened(route)
