@@ -65,19 +65,6 @@ class Knight
     route
   end
 
-  def shortest_route(routes)
-    shortest = nil
-    routes.each do |route|
-      if shortest
-        shortest = route if route.length < shortest.length
-      else
-        shortest = route
-      end
-    end
-
-    shortest
-  end
-
   def route(current_node, root_node)
     route = []
 
