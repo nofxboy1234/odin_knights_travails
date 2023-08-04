@@ -34,25 +34,13 @@ class Knight
       end
       next if node_in_another_route
 
-      # current_route = route(current, root_node)
-      # route_piece_exists = routes.any? do |route|
-      #   (route & current_route) == current_route
-      # end
-      # next if route_piece_exists
-
-      # --base case
       if current == destination
-        # puts 'destination reached!'
-
-        # --return value
-        # return route(current, root_node)
         current_route = route(current, root_node)
         routes.push(route_shortened(current_route))
         p routes
         next
       end
 
-      # --recursive case
       current.children.each do |child_node|
         next if child_node == root_node ||
                 route(current, root_node).include?(child_node)
