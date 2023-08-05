@@ -20,7 +20,7 @@ class Knight
     all_routes = draw_routes_iterative(current_position_node, destination_node)
     shortest_route(all_routes)
   end
-  
+
   def shortest_route(all_routes)
     shortest_route = nil
     all_routes.each do |route|
@@ -30,7 +30,7 @@ class Knight
         shortest_route = route
       end
     end
-  
+
     shortest_route
   end
 
@@ -38,7 +38,7 @@ class Knight
     # byebug
     route.each_with_index do |parent_node, parent_index|
       next_index = parent_index + 1
-      route[(next_index)..].each do |child_node|
+      route[next_index..].each do |child_node|
         next unless parent_node.children.include?(child_node)
 
         child_index = route.index(child_node)
@@ -65,9 +65,8 @@ class Knight
 
       if current == destination
         current_route = route(current, root_node)
-        all_routes.push(current_route)
+        all_routes.push(route_shortened(current_route))
         next
-        # return route_shortened(current_route)
       end
 
       current.children.each do |child_node|
@@ -75,6 +74,12 @@ class Knight
                 route(current, root_node).include?(child_node)
 
         child_node.parent = current
+
+        exists_in_queue = queue.any? do |node|
+          route(node, root_node) == route(child_node, root_node)
+        end
+        next if exists_in_queue
+
         queue.push(child_node)
       end
     end
@@ -122,7 +127,6 @@ end
 
 # # 1,1->5,1->8,1
 # p knight.route_shortened2(route)
-
 
 # byebug
 # a = %w[a b c d e f]
