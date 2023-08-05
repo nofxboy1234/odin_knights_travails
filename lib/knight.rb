@@ -20,7 +20,7 @@ class Knight
     draw_routes_iterative(current_position_node, destination_node)
   end
 
-  def route_shortened2(route)
+  def route_shortened(route)
     # byebug
     route.each_with_index do |parent_node, parent_index|
       next_index = parent_index + 1
@@ -49,7 +49,7 @@ class Knight
 
       if current == destination
         current_route = route(current, root_node)
-        return route_shortened2(current_route)
+        return route_shortened(current_route)
       end
 
       current.children.each do |child_node|
@@ -60,28 +60,6 @@ class Knight
         queue.push(child_node)
       end
     end
-  end
-
-  def route_shortened(route)
-    # Are there nodes further down in the route that are also children of the current parent?
-    route.each_with_index do |parent_node, parent_index|
-      later_child_node = nil
-      route.reverse.each do |child_node|
-        if parent_node.children.include?(child_node)
-          later_child_node = child_node
-          break
-        end
-      end
-
-      next unless later_child_node
-
-      later_index = route.index(later_child_node)
-      # cut out the inbetween nodes
-      shortened = route[..parent_index] + route[later_index..]
-      return shortened
-    end
-
-    route
   end
 
   def route(current_node, root_node)
