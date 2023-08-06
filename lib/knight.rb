@@ -79,7 +79,7 @@ class Knight
     until queue.empty?
       current = queue.shift
       if current == destination
-        current_route = route(current, root_node)
+        current_route = route(current)
         # rubocop:disable Style/IfUnlessModifier
         unless exists_in_all_routes?(route_shortened(current_route))
           all_routes.push(route_shortened(current_route))
@@ -94,12 +94,12 @@ class Knight
   def add_children_to_queue(current, root_node, queue)
     current.children.each do |child_node|
       next if child_node == root_node ||
-              route(current, root_node).include?(child_node)
+              route(current).include?(child_node)
 
       child_node.parent = current
 
       exists_in_queue = queue.any? do |node|
-        route(node, root_node) == route(child_node, root_node)
+        route(node) == route(child_node)
       end
       next if exists_in_queue
 
@@ -107,7 +107,7 @@ class Knight
     end
   end
 
-  def route(current_node, root_node)
+  def route(current_node)
     route = []
 
     until current_node == root_node
