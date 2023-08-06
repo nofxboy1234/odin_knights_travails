@@ -30,7 +30,8 @@ class Node
   end
 
   def <=>(other)
-    [data.x_pos, data.y_pos] <=> [other.data.x_pos, other.data.y_pos]
+    other_data = other.data
+    [data.x_pos, data.y_pos] <=> [other_data.x_pos, other_data.y_pos]
   end
 end
 
