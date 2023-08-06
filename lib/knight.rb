@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'graph/node'
 require_relative 'position'
 
@@ -57,7 +59,6 @@ class Knight
   private
 
   def draw_routes_iterative(current, destination)
-    # byebug
     root_node = current
 
     queue = []
