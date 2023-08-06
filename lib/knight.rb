@@ -86,12 +86,12 @@ class Knight
         end
         # rubocop:enable Style/IfUnlessModifier
       else
-        add_children_to_queue(current, root_node, queue)
+        add_children_to_queue(current)
       end
     end
   end
 
-  def add_children_to_queue(current, root_node, queue)
+  def add_children_to_queue(current)
     current.children.each do |child_node|
       next if child_node == root_node ||
               route(current).include?(child_node)
