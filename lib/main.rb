@@ -14,29 +14,19 @@ puts 'Enter number of board columns (8 for standard chess board): '
 board_columns = gets.chomp.strip.to_i
 puts "\n"
 
-start_x = -1
-until (0...board_columns).include?(start_x)
-  puts "Enter start x position (0-#{board_columns - 1}): "
-  start_x = gets.chomp.strip.to_i
+def get_input(range_max, value)
+  input = -1
+  until (0...range_max).include?(input)
+    puts "Enter #{value} position (0-#{range_max - 1}): "
+    input = gets.chomp.strip.to_i
+  end
+  input
 end
 
-start_y = -1
-until (0...board_rows).include?(start_y)
-  puts "Enter start y position (0-#{board_rows - 1}): "
-  start_y = gets.chomp.strip.to_i
-end
-
-end_x = -1
-until (0...board_columns).include?(end_x)
-  puts "Enter end x position (0-#{board_columns - 1}): "
-  end_x = gets.chomp.strip.to_i
-end
-
-end_y = -1
-until (0...board_rows).include?(end_y)
-  puts "Enter end y position (0-#{board_rows - 1}): "
-  end_y = gets.chomp.strip.to_i
-end
+start_x = get_input(board_columns, 'start_x')
+start_y = get_input(board_columns, 'start_y')
+end_x = get_input(board_columns, 'end_x')
+end_y = get_input(board_columns, 'end_y')
 
 board_size = [board_rows, board_columns]
 start_position = [start_x, start_y]
