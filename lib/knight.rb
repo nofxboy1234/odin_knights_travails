@@ -84,26 +84,29 @@ class Knight
           all_routes.push(shortened_route)
         end
         # rubocop:enable Style/IfUnlessModifier
-
         next
       end
 
-      current.children.each do |child_node|
-        next if child_node == root_node ||
-                route(current, root_node).include?(child_node)
-
-        child_node.parent = current
-
-        exists_in_queue = queue.any? do |node|
-          route(node, root_node) == route(child_node, root_node)
-        end
-        next if exists_in_queue
-
-        queue.push(child_node)
-      end
+      add_children_to_queue(current, root_node, queue)
     end
 
     all_routes
+  end
+
+  def add_children_to_queue(current, root_node, queue)
+    current.children.each do |child_node|
+      next if child_node == root_node ||
+              route(current, root_node).include?(child_node)
+
+      child_node.parent = current
+
+      exists_in_queue = queue.any? do |node|
+        route(node, root_node) == route(child_node, root_node)
+      end
+      next if exists_in_queue
+
+      queue.push(child_node)
+    end
   end
 
   def route(current_node, root_node)
