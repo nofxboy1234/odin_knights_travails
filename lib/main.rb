@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'pry-byebug'
-require_relative 'graph/graph'
 require_relative 'knight'
 require_relative 'board'
 require_relative 'position'
@@ -43,10 +42,9 @@ board_size = [board_rows, board_columns]
 start_position = [start_x, start_y]
 end_position = [end_x, end_y]
 
+position = Position.new(*start_position)
 board = Board.new(*board_size)
-knight = Knight.new(Position.new(*start_position))
-graph = Graph.new(board, knight)
-knight.stops = graph.root
+knight = Knight.new(position, board)
 
 shortest_route = knight.shortest_path_to_destination(end_position)
 puts "The shortest route for a Knight from #{start_position} to

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'graph/graph'
 require_relative 'graph/node'
 require_relative 'position'
 
@@ -7,17 +8,18 @@ require 'pry-byebug'
 
 # Knight represents the chess piece and the moves it can do
 class Knight
-  attr_reader :position, :moves
-  attr_accessor :stops
+  attr_reader :position, :moves, :board
 
-  def initialize(position)
+  def initialize(position, board)
     @moves = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]]
     @position = position
+    @board = board
   end
 
   def shortest_path_to_destination(destination)
     destination_node = Node.new(Position.new(destination.first, destination.last))
-    current_position_node = stops
+    graph = Graph.new(board, self)
+    current_position_node = graph.root
 
     all_routes = draw_routes_iterative(current_position_node, destination_node)
 
@@ -59,9 +61,8 @@ class Knight
   private
 
   def exists_in_all_routes?(all_routes, current_route)
-    shortened_route = route_shortened(current_route)
     all_routes.any? do |route|
-      route == shortened_route
+      route == route_shortened(current_route)
     end
   end
 
@@ -77,11 +78,10 @@ class Knight
 
       if current == destination
         current_route = route(current, root_node)
-        shortened_route = route_shortened(current_route)
 
         # rubocop:disable Style/IfUnlessModifier
         unless exists_in_all_routes?(all_routes, current_route)
-          all_routes.push(shortened_route)
+          all_routes.push(route_shortened(current_route))
         end
         # rubocop:enable Style/IfUnlessModifier
         next
