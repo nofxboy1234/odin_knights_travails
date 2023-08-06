@@ -45,7 +45,6 @@ class Graph
     child_y_pos = position.y_pos + move_y_offset
     Position.new(child_x_pos, child_y_pos)
   end
-
 end
 
 # rubocop:enable Lint/RedundantCopDisableDirective

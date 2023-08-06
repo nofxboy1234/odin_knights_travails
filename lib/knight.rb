@@ -58,6 +58,13 @@ class Knight
 
   private
 
+  def exists_in_all_routes?(all_routes, current_route)
+    shortened_route = route_shortened(current_route)
+    all_routes.any? do |route|
+      route == shortened_route
+    end
+  end
+
   def draw_routes_iterative(current, destination)
     root_node = current
 
@@ -70,13 +77,13 @@ class Knight
 
       if current == destination
         current_route = route(current, root_node)
-
         shortened_route = route_shortened(current_route)
-        exists_in_all_routes = all_routes.any? do |route|
-          route == shortened_route
-        end
 
-        all_routes.push(shortened_route) unless exists_in_all_routes
+        # rubocop:disable Style/IfUnlessModifier
+        unless exists_in_all_routes?(all_routes, current_route)
+          all_routes.push(shortened_route)
+        end
+        # rubocop:enable Style/IfUnlessModifier
 
         next
       end
