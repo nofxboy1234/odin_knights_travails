@@ -8,11 +8,12 @@ require 'pry-byebug'
 
 # Knight represents the chess piece and the moves it can do
 class Knight
-  attr_reader :position, :moves, :board, :queue
+  attr_reader :position, :moves, :board, :queue, :all_routes
 
   def initialize(position, board)
     @moves = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]]
     @queue = []
+    @all_routes = []
     @position = position
     @board = board
   end
@@ -29,26 +30,26 @@ class Knight
     destination_node = Node.new(Position.new(destination.first, destination.last))
 
     queue.push(root_node)
-    all_routes = draw_routes_iterative(root_node, destination_node)
+    draw_routes_iterative(root_node, destination_node)
 
     puts 'all routes:'
     all_routes.each { |route| p route }
     puts "\n"
 
-    shortest_route(all_routes)
+    shortest_route
   end
 
-  def shortest_route(all_routes)
-    shortest_route = nil
+  def shortest_route
+    shortest = nil
     all_routes.each do |route|
-      if shortest_route
-        shortest_route = route if route.length < shortest_route.length
+      if shortest
+        shortest = route if route.length < shortest.length
       else
-        shortest_route = route
+        shortest = route
       end
     end
 
-    shortest_route
+    shortest
   end
 
   def route_shortened(route)
@@ -68,7 +69,7 @@ class Knight
 
   private
 
-  def exists_in_all_routes?(all_routes, current_route)
+  def exists_in_all_routes?(current_route)
     all_routes.any? do |route|
       route == route_shortened(current_route)
     end
@@ -77,14 +78,13 @@ class Knight
   def search_for_destination(destination, all_routes); end
 
   def draw_routes_iterative(current, destination)
-    all_routes = []
     until queue.empty?
       current = queue.shift
       if current == destination
         current_route = route(current, root_node)
 
         # rubocop:disable Style/IfUnlessModifier
-        unless exists_in_all_routes?(all_routes, current_route)
+        unless exists_in_all_routes?(current_route)
           all_routes.push(route_shortened(current_route))
         end
         # rubocop:enable Style/IfUnlessModifier
@@ -92,8 +92,6 @@ class Knight
       end
       add_children_to_queue(current, root_node, queue)
     end
-
-    all_routes
   end
 
   def add_children_to_queue(current, root_node, queue)
