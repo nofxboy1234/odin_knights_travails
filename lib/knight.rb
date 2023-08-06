@@ -75,8 +75,6 @@ class Knight
     end
   end
 
-  def search_for_destination(destination, all_routes); end
-
   def draw_routes_iterative(current, destination)
     until queue.empty?
       current = queue.shift
