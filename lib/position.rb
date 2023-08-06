@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Position represents a 0-indexed 2-D position on a chess board
 class Position
   include Comparable
 

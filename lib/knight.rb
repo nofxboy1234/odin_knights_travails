@@ -4,8 +4,8 @@ require_relative 'graph/node'
 require_relative 'position'
 
 require 'pry-byebug'
-require_relative 'graph/byebug_syntax_highlighting'
 
+# Knight represents the chess piece and the moves it can do
 class Knight
   attr_reader :position, :moves
   attr_accessor :stops

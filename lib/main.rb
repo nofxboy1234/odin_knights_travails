@@ -49,4 +49,6 @@ graph = Graph.new(board, knight)
 knight.stops = graph.root
 
 shortest_route = knight.shortest_path_to_destination(end_position)
-puts "The shortest route for a Knight from #{start_position} to #{end_position} on a #{board_size.first}x#{board_size.last} chess board is #{shortest_route}"
+puts "The shortest route for a Knight from #{start_position} to
+      #{end_position} on a #{board_size.first}x#{board_size.last} chess board is
+      #{shortest_route}"

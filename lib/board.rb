@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Board stores the number of rows and columns in a chess board
 class Board
   attr_reader :rows, :columns
 
