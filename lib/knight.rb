@@ -8,7 +8,7 @@ require 'pry-byebug'
 
 # Knight represents the chess piece and the moves it can do
 class Knight
-  attr_reader :position, :moves, :board
+  attr_reader :position, :moves, :board, :root_node
 
   def initialize(position, board)
     @moves = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]]
@@ -19,9 +19,9 @@ class Knight
   def shortest_path_to_destination(destination)
     destination_node = Node.new(Position.new(destination.first, destination.last))
     graph = Graph.new(board, self)
-    current_position_node = graph.root
+    @root_node = graph.root
 
-    all_routes = draw_routes_iterative(current_position_node, destination_node)
+    all_routes = draw_routes_iterative(root_node, destination_node)
 
     puts 'all routes:'
     all_routes.each { |route| p route }
@@ -67,15 +67,12 @@ class Knight
   end
 
   def draw_routes_iterative(current, destination)
-    root_node = current
-
     queue = []
     queue.push(current)
 
     all_routes = []
     until queue.empty?
       current = queue.shift
-
       if current == destination
         current_route = route(current, root_node)
 
@@ -86,7 +83,6 @@ class Knight
         # rubocop:enable Style/IfUnlessModifier
         next
       end
-
       add_children_to_queue(current, root_node, queue)
     end
 
