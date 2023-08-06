@@ -16,7 +16,7 @@ puts "\n"
 
 def get_input(range_max, value)
   input = -1
-  until (0...range_max).include?(input)
+  until (0...range_max).cover?(input)
     puts "Enter #{value} position (0-#{range_max - 1}): "
     input = gets.chomp.strip.to_i
   end
