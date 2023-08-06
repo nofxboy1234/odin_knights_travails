@@ -69,9 +69,9 @@ class Knight
 
   private
 
-  def exists_in_all_routes?(current_route)
+  def exists_in_all_routes?(shortened_route)
     all_routes.any? do |route|
-      route == route_shortened(current_route)
+      route == shortened_route
     end
   end
 
@@ -81,7 +81,7 @@ class Knight
       if current == destination
         current_route = route(current, root_node)
         # rubocop:disable Style/IfUnlessModifier
-        unless exists_in_all_routes?(current_route)
+        unless exists_in_all_routes?(route_shortened(current_route))
           all_routes.push(route_shortened(current_route))
         end
         # rubocop:enable Style/IfUnlessModifier
