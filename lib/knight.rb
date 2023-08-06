@@ -80,15 +80,14 @@ class Knight
       current = queue.shift
       if current == destination
         current_route = route(current, root_node)
-
         # rubocop:disable Style/IfUnlessModifier
         unless exists_in_all_routes?(current_route)
           all_routes.push(route_shortened(current_route))
         end
         # rubocop:enable Style/IfUnlessModifier
-        next
+      else
+        add_children_to_queue(current, root_node, queue)
       end
-      add_children_to_queue(current, root_node, queue)
     end
   end
 
