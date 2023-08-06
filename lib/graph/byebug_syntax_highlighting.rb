@@ -35,26 +35,24 @@ if Gem::Version.new(Byebug::VERSION) >= Gem::Version.new('10.0.0')
       #
       def file
         @highlighted_file ||=
-          begin
-            if defined? Rouge
-              source = File.read(@file)
+          if defined? Rouge
+            source = File.read(@file)
 
-              theme     = Rouge::Themes::Monokai.new
-              formatter = Rouge::Formatters::Terminal256.new(theme)
-              lexer     = Rouge::Lexers::Ruby.new
+            theme     = Rouge::Themes::Monokai.new
+            formatter = Rouge::Formatters::Terminal256.new(theme)
+            lexer     = Rouge::Lexers::Ruby.new
 
-              dest = formatter.format(lexer.lex(source))
+            dest = formatter.format(lexer.lex(source))
 
-              # Tempfile with the highlighted syntax is assigned to the instance variable
-              # in order to prevent its premature garbage collection.
-              @tempfile_with_highlighted_syntax = Tempfile.new.tap { |t| t.write(dest) }.tap(&:close)
+            # Tempfile with the highlighted syntax is assigned to the instance variable
+            # in order to prevent its premature garbage collection.
+            @tempfile_with_highlighted_syntax = Tempfile.new.tap { |t| t.write(dest) }.tap(&:close)
 
-              @tempfile_with_highlighted_syntax.path
-            else
-              warn %q{Rouge(a pure Ruby code highlighter) is not defined. Maybe you forgot to require it? (require 'rouge')}
+            @tempfile_with_highlighted_syntax.path
+          else
+            warn "Rouge(a pure Ruby code highlighter) is not defined. Maybe you forgot to require it? (require 'rouge')"
 
-              @file
-            end
+            @file
           end
       end
     end

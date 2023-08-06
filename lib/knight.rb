@@ -18,7 +18,7 @@ class Knight
     current_position_node = stops
 
     all_routes = draw_routes_iterative(current_position_node, destination_node)
-    
+
     puts 'all routes:'
     all_routes.each { |route| p route }
     puts "\n"
@@ -75,9 +75,7 @@ class Knight
           route == shortened_route
         end
 
-        unless exists_in_all_routes
-          all_routes.push(shortened_route) 
-        end
+        all_routes.push(shortened_route) unless exists_in_all_routes
 
         next
       end
