@@ -30,7 +30,7 @@ class Knight
     destination_node = Node.new(Position.new(destination.first, destination.last))
 
     queue.push(root_node)
-    draw_routes_iterative(root_node, destination_node)
+    draw_routes_iterative(destination_node)
 
     puts 'all routes:'
     all_routes.each { |route| p route }
@@ -75,7 +75,7 @@ class Knight
     end
   end
 
-  def draw_routes_iterative(current, destination)
+  def draw_routes_iterative(destination)
     until queue.empty?
       current = queue.shift
       if current == destination
